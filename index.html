@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess Hue</title>
+    <style>
+        #targetcolor {
+            width: 300px;
+            height: 200px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Guess Hue</h1>
+
+        <p>Welcome to Guess Hue!</p>
+
+        <label for="playerName">Player Name:</label>
+        <input type="text" id="playerName" placeholder="Enter your name">
+
+        <button id="joinBtn">Join Game</button>
+    </div>
+
+    <div>
+        <h2>Game Area</h2>
+
+        <p>Guess the color!</p>
+
+        <div id="targetcolor"></div>
+
+        <label for="red">red:</label>
+        <input type="number" id="red" min="0" max="255">
+
+        <label for="green">Green:</label>
+        <input type="number" id="green" min="0" max="255">
+
+        <label for="blue">Blue:</label>
+        <input type="number" id="blue" min="0" max="255">
+
+        <button id="submitGuessBtn">Submit Guess</button>
+
+        <p>Score: <span id="score">0</span></p>
+        <p>Time Remaining:<span id="timer">30</span> seconds</p>
+        <p>Round: <span id="round">1</span></p>
+
+    </div>
+
+    <div>
+        <h2>Players</h2>
+
+        <ul id="playerList">
+            <li>Waiting for players...</li>
+
+        </ul>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
