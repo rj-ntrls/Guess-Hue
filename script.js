@@ -12,10 +12,12 @@ const blueInput = document.getElementById("blue");
 const scoreDisplay = document.getElementById("score");
 
 const timerDisplay = document.getElementById("timer");
+const roundDisplay = document.getElementById("round");
 
 const targetcolorBox = document.getElementById("targetcolor");
 
 let gameActive = true;
+let roundNumber = 1;
 
 
 
@@ -34,6 +36,8 @@ function generateTargetColor(){
 
 
 function startNewRound() {
+    gameActive = true;
+    
     const newtargerColor = generateTargetColor();
 
     const newTargetValues = newtargerColor.match(/\d+/g).map(Number);
@@ -47,7 +51,10 @@ function startNewRound() {
     console.log("new round started!");
     console.log("New target RGB:", targetRed, targetGreen, targetBlue);
 
-    timeRemaining = 5;
+    roundNumber++;
+    roundDisplay.textContent = roundNumber;
+
+    timeRemaining = 30;
     timerDisplay.textContent = timeRemaining;
 
     startTimer();
@@ -148,5 +155,3 @@ function startTimer() {
 }
 
 startTimer();
-
-startNewRound();
