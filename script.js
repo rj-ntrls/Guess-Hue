@@ -10,6 +10,7 @@ const greenInput = document.getElementById("green");
 const blueInput = document.getElementById("blue");
 
 const scoreDisplay = document.getElementById("score");
+const roundScoreDisplay = document.getElementById("roundScore");
 
 const timerDisplay = document.getElementById("timer");
 const roundDisplay = document.getElementById("round");
@@ -18,6 +19,8 @@ const targetcolorBox = document.getElementById("targetcolor");
 
 let gameActive = true;
 let roundNumber = 1;
+let totalScore = 0;
+
 
 
 
@@ -37,16 +40,27 @@ function generateTargetColor(){
 
 function startNewRound() {
     gameActive = true;
-    
-    const newtargerColor = generateTargetColor();
+    submitGuessBtn.disabled = false;
+    redInput.disabled = false;
+    greenInput.disabled = false;
+    blueInput.disabled = false;
 
-    const newTargetValues = newtargerColor.match(/\d+/g).map(Number);
+
+    roundScoreDisplay.textContent = 0;
+
+    redInput.value = "";
+    greenInput.value = "";
+    blueInput.value = "";
+    
+    const newtargetColor = generateTargetColor();
+
+    const newTargetValues = newtargetColor.match(/\d+/g).map(Number);
 
     targetRed = newTargetValues[0];
     targetGreen = newTargetValues[1];
     targetBlue = newTargetValues[2];
 
-    targetcolorBox.style.backgroundColor = newtargerColor;
+    targetcolorBox.style.backgroundColor = newtargetColor;
 
     console.log("new round started!");
     console.log("New target RGB:", targetRed, targetGreen, targetBlue);
@@ -85,13 +99,29 @@ joinBtn.addEventListener("click", function() {
 submitGuessBtn.addEventListener("click", function() {
     
     if (!gameActive) {
-        alert("The Game is over!!");
+        alert("You already submitted your guess for this round!");
         return;
     }
 
-    const red = redInput.value;
-    const green = greenInput.value;
-    const blue = blueInput.value;
+    const redValue = redInput.value;
+    const greenValue = greenInput.value;
+    const blueValue = blueInput.value;
+
+    if (redValue === "" || greenValue === "" || blueValue === "") {
+        alert("Please enter all RGB values!");
+        return;
+    }
+
+    const red = Number(redInput.value);
+    const green = Number(greenInput.value);
+    const blue = Number(blueInput.value);
+
+    if (red < 0 || red > 255 ||
+        green < 0 || green > 255 ||
+        blue < 0 || blue > 255) {
+            alert("RGB Values must be between 0 and 255!");
+            return;
+        }
 
     console.log("player guess:", red, green, blue);
 
@@ -112,7 +142,19 @@ submitGuessBtn.addEventListener("click", function() {
 
     console.log("Score:", score);
 
-    scoreDisplay.textContent = score;
+    totalScore += score;
+
+    console.log("Total score:", totalScore);
+
+    scoreDisplay.textContent = totalScore;
+    roundScoreDisplay.textContent = score;
+
+    gameActive = false;
+    submitGuessBtn.disabled = true;
+
+    redInput.disabled = true;
+    greenInput.disabled = true;
+    blueInput.disabled = true;
 
     
 
