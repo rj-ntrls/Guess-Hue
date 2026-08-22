@@ -11,11 +11,15 @@ const blueInput = document.getElementById("blue");
 
 const scoreDisplay = document.getElementById("score");
 const roundScoreDisplay = document.getElementById("roundScore");
+const resultMessage = document.getElementById("resultMessage");
+const playerGuessDisplay = document.getElementById("playerGuess");
+const targetRGBDisplay = document.getElementById("targetRGB");
 
 const timerDisplay = document.getElementById("timer");
 const roundDisplay = document.getElementById("round");
 
 const targetcolorBox = document.getElementById("targetcolor");
+const colorDifferenceDisplay = document.getElementById("colorDifference");
 
 let gameActive = true;
 let roundNumber = 1;
@@ -47,6 +51,10 @@ function startNewRound() {
 
 
     roundScoreDisplay.textContent = 0;
+    resultMessage.textContent = "Waiting for guess...";
+    playerGuessDisplay.textContent = "---";
+    targetRGBDisplay.textContent = "---";
+    colorDifferenceDisplay.textContent = "---";
 
     redInput.value = "";
     greenInput.value = "";
@@ -148,6 +156,19 @@ submitGuessBtn.addEventListener("click", function() {
 
     scoreDisplay.textContent = totalScore;
     roundScoreDisplay.textContent = score;
+    playerGuessDisplay.textContent =`RGB(${red}, ${green}, ${blue})`;
+    targetRGBDisplay.textContent = `RGB(${targetRed}, ${targetGreen}, ${targetBlue})`;
+    colorDifferenceDisplay.textContent = totalDifference;
+
+    if (totalDifference <= 30) {
+        resultMessage.textContent = "Amazing! very close!";
+    } else if (totalDifference  <= 100) {
+        resultMessage.textContent = "Great guess!!";
+    } else if (totalDifference  <= 100) {
+        resultMessage.textContent = "Not bad!!";
+    } else {
+        resultMessage.textContent = "You can do better!!";
+    }
 
     gameActive = false;
     submitGuessBtn.disabled = true;
